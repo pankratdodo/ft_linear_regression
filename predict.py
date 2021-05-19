@@ -6,7 +6,7 @@ param_file = 'parameters.txt'
 
 
 def error(mess):
-    print(mess)
+    print('\033[91m' + mess)
     exit(-1)
 
 
@@ -82,7 +82,7 @@ def main():
     x, y = data_file_parser()
     normalized_mileage = normalize_millage(x, millage)
     estimate_price = get_estimate_price(normalized_mileage, t0, t1, y)
-    print("Car with millage = {} worth {}.".format(millage, estimate_price))
+    print('\033[92m' + "Car with millage = {} worth {}.".format(millage, int(estimate_price)))
 
 
 if __name__ == '__main__':
