@@ -1,6 +1,5 @@
 import csv
 import sys
-import os.path
 from predict import data_file_parser
 from predict import error
 import matplotlib.pyplot as plt
@@ -37,8 +36,8 @@ def normalize_value(value):
 
 
 def write_to_param_file(a, b):
-    if not os.path.isfile(param_file):
-        error("File with params {} does not exist.".format(param_file))
+    # if not os.path.isfile(param_file):
+    #     error("File with params {} does not exist.".format(param_file))
     try:
         param_file_fd = open(param_file, 'w')
         file = csv.writer(param_file_fd)

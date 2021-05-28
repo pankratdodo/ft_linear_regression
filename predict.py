@@ -1,12 +1,13 @@
 import os.path
 import csv
+import sys
 
 data_file = 'data.csv'
 param_file = 'parameters.txt'
 
 
 def error(mess):
-    print('\033[91m' + mess)
+    print('\033[91m' + mess, file=sys.stderr)
     exit(-1)
 
 
@@ -41,13 +42,18 @@ def data_file_parser():
             for i in data:
                 if len(i) != 2:
                     error("Row {} is incorrect.".format(i))
-                if i[0].isnumeric() or i[1].isnumeric():
-                    x.append(int(i[0]))
-                    y.append(int(i[1]))
+                if i[0].isnumeric() and i[1].isnumeric():
+                    if int(i[0]) < 1000000 and int(i[1]) < 10000:
+                        x.append(int(i[0]))
+                        y.append(int(i[1]))
+                    else:
+                        error("Value in row {} is too big.".format(i))
                 else:
                     error("Row {} has incorrect values.".format(i))
     except IOError:
         error("Cant open {} file.".format(data_file))
+    except ValueError:
+        error("Invalid values of {} file".format(data_file))
     return x, y
 
 
@@ -78,8 +84,8 @@ def get_estimate_price(normalized_mileage, t0, t1, y):
 
 def main():
     t0, t1 = param_file_parser()
-    millage = millage_parser()
     x, y = data_file_parser()
+    millage = millage_parser()
     normalized_mileage = normalize_millage(x, millage)
     estimate_price = get_estimate_price(normalized_mileage, t0, t1, y)
     print('\033[92m' + "Car with millage = {} worth {}.".format(millage, int(estimate_price)))
