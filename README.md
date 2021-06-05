@@ -44,4 +44,4 @@ Also, don’t forget to simultaneously update theta0 and theta1.
 - Plotting the data into a graph to see their repartition.
 - Plotting the line resulting from your linear regression into the same graph. 
 - Possible to change learning rate and value of epchos by flags `-lr`, `-epchos`.
-- Colour of responses.
+- Color of responses.
